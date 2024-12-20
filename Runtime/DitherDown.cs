@@ -12,6 +12,7 @@ public sealed class DitherDown : CustomPostProcessVolumeComponent, IPostProcessC
     #endregion
 
     #region Exposed parameters
+    public BoolParameter enable = new BoolParameter(true);
 
     public ClampedIntParameter colorLevels = new ClampedIntParameter(16, 1, 24);
     public DitherTypeParameter ditherType = new DitherTypeParameter { value = DitherType.Bayer2x2 };
@@ -40,7 +41,7 @@ public sealed class DitherDown : CustomPostProcessVolumeComponent, IPostProcessC
 
     #region Postprocess effect implementation
 
-    public bool IsActive() => _material != null;
+    public bool IsActive() => _material != null && enable.value;
 
     public override CustomPostProcessInjectionPoint injectionPoint =>
         CustomPostProcessInjectionPoint.AfterPostProcess;
